@@ -1,0 +1,17 @@
+
+Self-Reflection:
+
+This assignment has a lot to learn about C# and logics. 
+I am thankful for that. 
+Since I forget to mention self-reflection in the Canvas’s comment section. 
+Therefore, mentioning here:
+
+1) Firstly, I learned lot more about arrays and matrix related logic and problem.
+On the way to solve problems, I overcome various logical operations and
+this assignment was very helpful to understand that.
+
+2) Upgraded my skills on the logical part through loops and conditions.
+
+3) Lastly using GitHub was exciting.
+
+Thank you!
