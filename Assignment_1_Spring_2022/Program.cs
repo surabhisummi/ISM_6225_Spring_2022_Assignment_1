@@ -5,6 +5,9 @@ WRITE YOUR CODE IN THE RESPECTIVE FUNCTION BLOCK
 
 */
 using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace DIS_Assignmnet1_SPRING_2022
 {
@@ -87,16 +90,45 @@ namespace DIS_Assignmnet1_SPRING_2022
 
         private static string RemoveVowels(string s)
         {
+            String fnl = "";
+
+
+            Char[] vw = new Char[5] { 'A', 'E', 'I', 'O', 'U' }; // declaring vowels
+            int vw_flag;
+
             try
             {
                 // write your code here
-                String final_string ="";
-                return final_string;
+
+
+                for (int i = 0; i < s.Length; i++) // first loop i
+                {
+                    vw_flag = 0;
+                    char letter = char.ToUpper(s[i]);
+
+                    for (int j = 0; j < vw.Length; j++) // checking fot conditions
+                    {
+                        if (letter == vw[j])
+                        {
+                            vw_flag = 1;
+                        }
+                    }
+
+
+                    if (vw_flag == 0)
+                    {
+                        fnl += letter;
+                    }
+                }
             }
-            catch (Exception)
+
+
+            catch (Exception e)
             {
-                throw;
+                Console.WriteLine(e.ToString());
             }
+
+            return fnl;
 
         }
 
@@ -123,11 +155,31 @@ namespace DIS_Assignmnet1_SPRING_2022
 
         private static bool ArrayStringsAreEqual(string[] bulls_string1, string[] bulls_string2)
         {
+            
+            bool similar = false;
+
+            string mystr1 = ""; // declaring string 1
+            string mystr2 = ""; // declaring string 2
+
             try
             {
                 // write your code here.
-                return false;
+
+
+                mystr1 = String.Join("", bulls_string1).ToUpper(); // Computing the strings
+                mystr2 = String.Join("", bulls_string2).ToUpper();
+
+                Console.WriteLine(mystr1 + " : " + mystr2); 
+
+                if (mystr1 == mystr2) // checking similar elements
+                {
+                    similar = true;
+                }
+
+                return similar;
             }
+
+
             catch (Exception)
             {
 
@@ -159,9 +211,33 @@ namespace DIS_Assignmnet1_SPRING_2022
             try
             {
                 // write your code here
-                return 0;
+                int sumOfArray = 0, count_uniq= 0; 
+                
+                // Hash to store all element of array
+                //HashSet<int> s = new HashSet<int>();
+                for (int i = 0; i < bull_bucks.Length; i++) // First Loop i
+                {
+                    for (int j = 0; j < bull_bucks.Length; j++) // Second loop j
+                    {
+                        if (bull_bucks[i] == bull_bucks[j])
+                        {
+                            count_uniq++;
+                        }
+
+                    }
+
+                    if (count_uniq == 1) // unique element of array
+                    {
+                        sumOfArray += bull_bucks[i]; // adding unique element of array
+                    }
+                    count_uniq = 0; 
+
+                }
+                
+                return sumOfArray; //
 
             }
+
             catch (Exception)
             {
                 throw;
@@ -190,18 +266,42 @@ namespace DIS_Assignmnet1_SPRING_2022
 
         private static int DiagonalSum(int[,] bulls_grid)
         {
+            int diaSum = 0, mid;
             try
             {
                 // write your code here.
+                
+                int n = Convert.ToInt32(Math.Sqrt(bulls_grid.Length)); // Getting length of the matrix.
 
-                return 0;
+                for (int i = 0; i < n; i++) // sum of diagonals
+                {
+                    diaSum = diaSum + bulls_grid[i, i];
+                }
+
+
+
+                for (int i = n - 1; i >= 0; i--)
+                {
+                    diaSum = diaSum + bulls_grid[Math.Abs(n - (i + 1)), i];
+                }
+                if (((n) % 2 != 0) && (n > 1))
+                {
+                    
+                    mid = (n - 1) / 2; // subtracting the middle value of matrix 
+                    diaSum = diaSum - bulls_grid[mid, mid];
+                }
+
+
+                return diaSum;
             }
+
             catch (Exception e)
             {
 
                 Console.WriteLine("An error occured: " + e.Message);
                 throw;
             }
+
 
         }
 
@@ -224,9 +324,45 @@ namespace DIS_Assignmnet1_SPRING_2022
         {
             try
             {
-                // write your code here.
-                return "null";
+                int str_Length = bulls_string.Length; // Taking the length of string
+                int ind_Length = indices.Length; // Taking the indices length
+
+                if (str_Length == ind_Length && str_Length >= 1 && str_Length <= 100) //Computing for string 
+                {
+
+
+                    var rgexp = new Regex("^[a-z]+$");
+                    if (rgexp.IsMatch(bulls_string) == true) 
+                    {
+
+                        string[] output = new string[str_Length];
+                        for (int i = 0; i < str_Length; i++)
+                        {
+                            int val = indices[i];
+                            if (val >= 0 && val < ind_Length)
+                            {
+                                output[val] = char.ToString(bulls_string[i]);
+                            }
+                            else
+                            {
+                                return null;
+                            }
+                        }
+
+                        string s1 = string.Join("", output);
+                        return s1;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
             }
+
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
@@ -264,8 +400,41 @@ namespace DIS_Assignmnet1_SPRING_2022
         {
             try
             {
-                String prefix_string ="";
-                return prefix_string;
+                String pre_str = "";
+                int index = bulls_string6.IndexOf(ch); // declaring the string
+
+                var exp = new Regex("^[a-z]+$");
+
+                if (bulls_string6.Length >= 1 && bulls_string6.Length <= 250 && exp.IsMatch(char.ToString(ch)) == true)
+                {
+
+                    if (index >= 0)
+                    {
+
+                        string[] s1 = new string[bulls_string6.Length]; // declaring string length
+                        int j = 0;
+                        for (int i = index; i >= 0; i--) // first loop i
+                        {
+                            s1[j] = char.ToString(bulls_string6[i]);
+                            j++;
+                        }
+                        s1[j] = bulls_string6.Substring(j, bulls_string6.Length - j);
+                        string op = string.Join("", s1); // joing the string
+                        return op;
+                    }
+
+
+                    else
+                    {
+                        return bulls_string6;
+                    }
+                }
+
+                else
+                {
+                    return pre_str;
+                }
+
             }
             catch (Exception)
             {
